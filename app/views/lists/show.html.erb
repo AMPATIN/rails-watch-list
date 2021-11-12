@@ -1,34 +1,23 @@
 <h1><%= @list.name %></h1>
 
-<% @list.bookmarks.each do |bookmark|%>
-  <div class="card" style="width: 18rem;">
-    <img src= <%=bookmark.movie.poster_url%> class="card-img-top" alt="movie poster">
-    <div class="card-body">
-      <h5 class="card-title"><%=bookmark.movie.title%> <%= bookmark.movie.rating %></h5>
-      <p class="movieoverview"><%=bookmark.movie.overview%></p>
-      <p class="card-text"><%=bookmark.comment%></p>
-      <%= link_to "delete",
+<div class = "cards">
+  <% @list.bookmarks.each do |bookmark|%>
+    <div class="card-bookmark">
+      <img src="<%=bookmark.movie.poster_url%>"/>
+      <div class="card-bookmark-infos d-flex">
+        <div>
+          <h2><%= bookmark.movie.title %></h2>
+          <p><%= bookmark.movie.overview %></p>
+          <p><%=bookmark.comment%></p>
+        </div>
+        <%= link_to "delete",
           bookmark_path(bookmark),
           method: :delete,
           data: { confirm: "Are you sure?" } %>
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
 
-<!--
-<ul>
-<% @list.bookmarks.each do |bookmark|%>
-  <li><%= bookmark.movie.title %></li>
-  <li><%= image_tag bookmark.movie.poster_url, alt: "movie poster", width: 200 %> </li>
-  <li><%= bookmark.movie.rating %></li>
-  <li><%= bookmark.movie.overview %></li>
-  <li><%= bookmark.comment %></li>
-      <%= link_to "delete",
-          bookmark_path(bookmark),
-          method: :delete,
-          data: { confirm: "Are you sure?" } %>
-<% end %>
-</ul>
--->
 <%= link_to 'Back', root_path %>
 <%= link_to 'Add a bookmark', new_list_bookmark_path(@list) %>
